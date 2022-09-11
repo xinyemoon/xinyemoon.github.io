@@ -8,7 +8,7 @@
       <link href="/2022/09/11/test/"/>
       <url>/2022/09/11/test/</url>
       
-        <content type="html"><![CDATA[<h3 id="1-图片测试"><a href="#1-图片测试" class="headerlink" title="1.图片测试"></a>1.图片测试</h3><ul><li><img src="https://cdn.jsdelivr.net/gh/xinyemoon/Image//article_img/blog_01.jpg" alt="blog_01"></li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="1-图片测试"><a href="#1-图片测试" class="headerlink" title="1.图片测试"></a>1.图片测试</h3><p>能否正常显示</p><ul><li><img src="https://cdn.jsdelivr.net/gh/xinyemoon/Image//article_img/blog_01.jpg" alt="blog_01"></li></ul>]]></content>
       
       
       
