@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Junit笔记(一)</title>
+      <link href="/2022/09/13/Junit%E7%AC%94%E8%AE%B0-%E4%B8%80/"/>
+      <url>/2022/09/13/Junit%E7%AC%94%E8%AE%B0-%E4%B8%80/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Junit简述"><a href="#Junit简述" class="headerlink" title="Junit简述"></a>Junit简述</h3><ul><li>junit是用于java单元测试工具，是一个单元测试框架，适用于白盒测试，也适用于回归测试<ul><li>白合测试: 程序的内部逻辑结构和其他信息对测试人员是公开的</li><li>回归测试: 对软件或者环境修复更正后的“再测试”</li><li>单元测试: 最小的测试模块，</li></ul></li><li>特性<ul><li>用于测试期望结果的断言</li><li>用于共享测试数据的测试工具</li><li>方便组织和运行的测试套件</li><li>图形和文本的测试运行器</li></ul></li></ul><h3 id="编写测试用例步骤"><a href="#编写测试用例步骤" class="headerlink" title="编写测试用例步骤"></a>编写测试用例步骤</h3><ul><li>创建被测对象</li><li>调用被测试方法，输入参数</li><li>判断预期结果是否和真实值一样</li></ul><h3 id="Junit语法"><a href="#Junit语法" class="headerlink" title="Junit语法"></a>Junit语法</h3><h4 id="junit3"><a href="#junit3" class="headerlink" title="junit3"></a>junit3</h4><ul><li>测试类都要继承TestCase</li><li>测试方法都要以test开头</li><li>测试三步骤进行测试</li><li>void setUp()方法每次执行测试方法都先执行一次、<ul><li>可以用来实例化对象</li></ul></li><li>void teardown()方法每次测试方法停止测试的时候都执行一次</li></ul><h4 id="Junit4"><a href="#Junit4" class="headerlink" title="Junit4"></a>Junit4</h4><ul><li><p>@Test</p><ul><li>每个测试方法要被标注，同时必须用public void进行修饰，且不能携带参数</li></ul></li><li><p>@Before</p><ul><li>同setup()一个作用</li></ul></li><li><p>@After</p><ul><li>同teardown()一个作用</li></ul></li><li><p>@BeforeClass</p><ul><li>被标记的方法必须为static，每次类初始化执行一次</li></ul></li><li><p>@AfterClass</p><ul><li>被标记的方法必须为static,每次类停止前执行一次</li></ul></li><li><p>ingore</p><ul><li>忽略被标记的方法</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Juint </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git笔记(一)</title>
       <link href="/2022/09/13/Git%E7%AC%94%E8%AE%B0-%E4%B8%80/"/>
       <url>/2022/09/13/Git%E7%AC%94%E8%AE%B0-%E4%B8%80/</url>
