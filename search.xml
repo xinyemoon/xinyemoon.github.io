@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Git笔记(一)</title>
+      <link href="/2022/09/13/Git%E7%AC%94%E8%AE%B0-%E4%B8%80/"/>
+      <url>/2022/09/13/Git%E7%AC%94%E8%AE%B0-%E4%B8%80/</url>
+      
+        <content type="html"><![CDATA[<h3 id="git是什么"><a href="#git是什么" class="headerlink" title="git是什么"></a>git是什么</h3><ul><li>一个开源的分布式版本的控制系统，用于处理项目</li><li>分布式版本库的方式</li><li>不仅仅是个版本控制系统，它也是个内容管理系统(CMS)，工作管理系统等。</li></ul><h4 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h4><ul><li>git config<ul><li>专门用来配置或者读取相应的工作环境变量的工具</li></ul></li><li>查看所有的git配置</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure><ul><li>用户配置<ul><li>配置用户名和邮箱</li></ul></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;XXX&quot;</span><br><span class="line">git config --global user.email &quot;XXX&quot;</span><br></pre></td></tr></table></figure><ul><li>设置文本编辑器</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor XXX</span><br></pre></td></tr></table></figure><p>略</p><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><ul><li>克隆git资源作为工作目录</li><li>添加或者修改文件</li><li>如果其他人修改了，你可以更新资源</li><li>在提交前查看修改</li><li>提交修改</li><li>在修改完成后，如果发现错误，可以撤回提交并再次修改并提交</li></ul><p>流程图</p><ul><li><img src="https://cdn.jsdelivr.net/gh/xinyemoon/Image//article_img/image-20220913150753435.png" alt="image-20220913150753435"></li></ul><h4 id="Git的工作区，暂存区和版本库"><a href="#Git的工作区，暂存区和版本库" class="headerlink" title="Git的工作区，暂存区和版本库"></a>Git的工作区，暂存区和版本库</h4><ul><li>工作区：我们电脑上能看见的目录</li><li>暂缓区：.&#x2F;git目录下index文件(.git&#x2F;index)中，也称索引</li><li>版本库：工作区的隐藏目录.git</li></ul><h4 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h4><ul><li>创建仓库<ul><li>生成.git目录，存放gi需求的数据和资源</li></ul></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init &quot;XXX&quot;</span><br></pre></td></tr></table></figure><ul><li>从git库拷贝项目<ul><li>repository: git仓库</li><li>directory: 本地目录</li></ul></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repository&gt; &lt;directory&gt;</span><br></pre></td></tr></table></figure><h4 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h4><ul><li><p>Git 的工作就是创建和保存你项目的快照及与之后的快照进行对比</p></li><li><p>基本六个命令：git clone、git push、git add、git commit、git checkout、git pull</p></li><li><p>流程图：</p><p><img src="https://cdn.jsdelivr.net/gh/xinyemoon/Image//article_img/image-20220913152424189.png" alt="image-20220913152424189"></p></li><li><p>创建：上面已演示</p></li><li><p>修改和提交</p></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git add //增加文件到缓存区</span><br><span class="line">git status //查看仓看状态</span><br><span class="line">git diff //比较缓存区和工作区文件的不同</span><br><span class="line">git commit //提交到本地仓库</span><br><span class="line">git reset //回退版本</span><br><span class="line">git rm //删除暂存区和工作区的文件</span><br><span class="line">git mv //移动或者重命名工作区文件</span><br></pre></td></tr></table></figure><ul><li>提交日志</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git log //查看历史提交记录</span><br><span class="line">git blame &lt;file&gt; //指定查看文件记录</span><br></pre></td></tr></table></figure><ul><li>远程命令</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote //远程仓库操作</span><br><span class="line">git fetch //获取代码库(不能自动merge)</span><br><span class="line">git merge //获取代码库后整合到当前分支</span><br><span class="line">git push //上传远程代码并合并</span><br><span class="line">git pull //下载远程代码并合并</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何搭建一个博客</title>
       <link href="/2022/09/12/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/"/>
       <url>/2022/09/12/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/</url>
