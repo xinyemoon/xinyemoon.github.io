@@ -1,0 +1,1316 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Servlet | Nature</title><meta name="keywords" content="Java,学习笔记"><meta name="author" content="新野"><meta name="copyright" content="新野"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Servlet 简介 Java Servlet 是运行在 Web 服务器或应用服务器上的程序 它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层 使用 Servlet，可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页 Java Servlet 通常情况下与使用 CGI（Common Gateway Int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet">
+<meta property="og:url" content="http://example.com/2022/09/25/Servlet/index.html">
+<meta property="og:site_name" content="Nature">
+<meta property="og:description" content="Servlet 简介 Java Servlet 是运行在 Web 服务器或应用服务器上的程序 它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层 使用 Servlet，可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页 Java Servlet 通常情况下与使用 CGI（Common Gateway Int">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808864.png">
+<meta property="article:published_time" content="2022-09-25T04:15:55.000Z">
+<meta property="article:modified_time" content="2022-09-23T16:00:00.000Z">
+<meta property="article:author" content="新野">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808864.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/xinyemoon/Image@v1.0.4/Blog/202209202244190.png"><link rel="canonical" href="http://example.com/2022/09/25/Servlet/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Servlet',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-24 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css"> .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body { left: -66px !important; /* 默认情况下缩进左侧66px，只留一点箭头部分 */ }
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover { left: 0 !important; /* 鼠标悬停是左侧缩进归零，完全显示按钮 */ } </style><link rel="stylesheet" href="/css/modify.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image@v1.0.4/Blog/202209202244761.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808864.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Nature</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Servlet</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-25T04:15:55.000Z" title="发表于 2022-09-25 12:15:55">2022-09-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-23T16:00:00.000Z" title="更新于 2022-09-24 00:00:00">2022-09-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">13.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>53分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Servlet"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808864.png');"></div><article class="post-content" id="article-container"><h3 id="Servlet-简介"><a href="#Servlet-简介" class="headerlink" title="Servlet 简介"></a>Servlet 简介</h3><ul>
+<li>Java Servlet 是运行在 <strong>Web 服务器</strong>或<strong>应用服务器</strong>上的程序</li>
+<li>它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层</li>
+<li>使用 Servlet，可以收集来自网页<strong>表单</strong>的用户输入，<strong>呈现</strong>来自<strong>数据库</strong>或者其他源的记录，还可以<strong>动态</strong>创建网页</li>
+<li>Java Servlet 通常情况下与使用 CGI（Common Gateway Interface，公共网关接口）实现的程序可以达到异曲同工的效果。但是相比于 CGI，有以下几点优点<ul>
+<li>性能好</li>
+<li>Servlet 在 Web服务器地址空间执行。没必要再创建一个单独的进程来处理每个客户端的请求</li>
+<li>独立于平台</li>
+<li>更安全</li>
+<li>Java 类库的全部功能对 Servlet 都是可用的<ul>
+<li>通过 <strong>sockets</strong> 和 <strong>RMI(<strong>Remote Method Invocation</strong>)</strong> 机制与 applets、数据库或其他软件进行交互</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-框架图"><a href="#Servlet-框架图" class="headerlink" title="Servlet 框架图"></a>Servlet 框架图</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://raw.githubusercontent.com/xinyemoon/Image/master/Note/202209241337018.png" alt="image-20220924133725981"></p>
+<h3 id="Servlet-任务"><a href="#Servlet-任务" class="headerlink" title="Servlet 任务"></a>Servlet 任务</h3><ul>
+<li>读取客户端(浏览器)发送的显示的数据<ul>
+<li>这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户端程序的表单</li>
+</ul>
+</li>
+<li>读取客户端(浏览器)发送的隐式 HTTP 请求数据<ul>
+<li>这包括 cookies、媒体类型和浏览器能理解的压缩格式等等</li>
+</ul>
+</li>
+<li>处理数据并生成结果<ul>
+<li>这个过程可能需要访问数据库，执行 RMI 或 CORBA 调用，调用 Web 服务，或者直接计算得出对应的响应</li>
+</ul>
+</li>
+<li>发送显示的数据(文档)到客户端(浏览器)<ul>
+<li>该文档的格式可以是多种多样的，包括文本文件（HTML 或 XML）、二进制文件（GIF 图像）、Excel 等</li>
+</ul>
+</li>
+<li>发送隐式的 HTTP 响应到客户端(浏览器)<ul>
+<li>这包括告诉浏览器或其他客户端被返回的文档类型（例如 HTML），设置 cookies 和缓存参数，以及其他类似的任务</li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-包及其创建"><a href="#Servlet-包及其创建" class="headerlink" title="Servlet 包及其创建"></a>Servlet 包及其创建</h3><ul>
+<li><p>Java Servlet 是运行在带有支持 Java Servlet 规范的解释器的 web 服务器上的 Java 类</p>
+</li>
+<li><p>Servlet 可以使用 <strong>javax.servlet</strong> 和 <strong>javax.servlet.http</strong> 包创建，它是 Java 企业版的标准组成部分</p>
+</li>
+<li><p>Servlet 创建的三种方式</p>
+<ul>
+<li><p><strong>实现 Servlet 接口</strong></p>
+</li>
+<li><p><strong>继承 GenericServlet 类</strong></p>
+</li>
+<li><p><strong>继承 HttpServlet 方法</strong></p>
+<ul>
+<li>重写 doPost() 和 doGet() 方法</li>
+<li>经常用的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>注释(三者之间的关系)：对于一个 Servlet 类，我们日常最常用的方法是继承自 HttpServlet 类，提供了 Http 相关的方法，HttpServlet 扩展了 GenericServlet 类，而 GenericServlet 类又实现了 Servlet 类和 ServletConfig 类</p>
+<h3 id="Servlet-生命周期"><a href="#Servlet-生命周期" class="headerlink" title="Servlet 生命周期"></a>Servlet 生命周期</h3><p>被定义从创建知道毁灭的整个过程</p>
+<ul>
+<li>Servlet 初始化后调用 init() 方法<ul>
+<li>被设置只被调用一次，在第一次创建 Servlet 是被调用</li>
+<li>当用户调用一个 Servlet 时，就会创建一个 Servlet 实例，每一个用户请求都会产生一个新的线程，适当的时候移交给 doGet 或 doPost 方法。init() 方法简单地创建或加载一些数据，这些数据将被用于 Servlet 的整个生命周期</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void init() throws ServletException {</span><br><span class="line">  // 初始化代码...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<ul>
+<li><p>Servlet 调用 service() 方法来处理用户端的请求</p>
+<ul>
+<li><p>是执行认为的主要方法</p>
+</li>
+<li><p>Servlet 容器（即 Web 服务器）调用 service() 方法来处理来自客户端（浏览器）的请求，并把格式化的响应写回给客户端</p>
+</li>
+<li><p>每次服务器接收到一个 Servlet 请求时，服务器会产生一个新的线程并调用服务。service() 方法检查 HTTP 请求类型（GET、POST、PUT、DELETE 等），并在适当的时候调用 doGet、doPost、doPut，doDelete 等方法</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void service(ServletRequest request, </span><br><span class="line">                    ServletResponse response) </span><br><span class="line">      throws ServletException, IOException{</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>doGet() 方法<ul>
+<li>GET 请求来自于一个 URL 的正常请求，或者来自于一个<em><strong>未指定</strong></em> METHOD 的 HTML 表单，它由 doGet() 方法处理</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void doGet(HttpServletRequest request,</span><br><span class="line">                  HttpServletResponse response)</span><br><span class="line">    throws ServletException, IOException {</span><br><span class="line">    // Servlet 代码</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>doPost() 方法<ul>
+<li>POST 请求来自于一个特别指定了 METHOD 为 POST 的 HTML 表单，它由 doPost() 方法处理</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void doPost(HttpServletRequest request,</span><br><span class="line">                   HttpServletResponse response)</span><br><span class="line">    throws ServletException, IOException {</span><br><span class="line">    // Servlet 代码</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<ul>
+<li>Servlet 销毁前调用 destroy() 方法<ul>
+<li>destroy() 方法只会被调用一次，在 Servlet 生命周期结束时被调用。destroy() 方法可以让您的 Servlet 关闭数据库连接、停止后台线程、把 Cookie 列表或点击计数器写入到磁盘，并执行其他类似的清理活动</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void destroy() {</span><br><span class="line">  // 终止化代码...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<ul>
+<li><p>最后由 JVM(java虚拟机) 的垃圾回收器进行垃圾回收</p>
+</li>
+<li><p>框架图</p>
+<ul>
+<li>第一个到达服务器的 HTTP 请求被委派到 Servlet 容器</li>
+<li>Servlet 容器在调用 service() 方法之前加载 Servlet</li>
+<li>然后 Servlet 容器处理由多个线程产生的多个请求，每个线程执行一个单一的 Servlet 实例的 servlet() 方法</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://raw.githubusercontent.com/xinyemoon/Image/master/Note/202209241414588.png" alt="image-20220924141427525"></li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-实例"><a href="#Servlet-实例" class="headerlink" title="Servlet 实例"></a>Servlet 实例</h3><ul>
+<li>Servlet 是服务 HTTP 请求并实现 javax.servlet.Servlet 接口的 Java 类。</li>
+<li>Web开发人员通常编写 Servlet 来扩展 javax.serlet.http.HTTPServlet 接口的抽象类专门用来处理 HTTP 请求</li>
+<li>示例</li>
+</ul>
+<h3 id="Servlet-表单数据"><a href="#Servlet-表单数据" class="headerlink" title="Servlet 表单数据"></a>Servlet 表单数据</h3><ul>
+<li>浏览器将信息传递到 Web 服务器的两种方法</li>
+</ul>
+<h4 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h4><ul>
+<li>GET 方法向页面请求发送已编码的用户信息</li>
+<li>页面和已编码的信息中间用？字符分割<ul>
+<li>例如<code>http://www.xinye.com/hi?key1=value1&amp;key2=value2</code></li>
+</ul>
+</li>
+<li>GET方法是默认的从浏览器向 Web 服务器传递信息的方法，它会产生一个很长的字符串，出现在浏览器的地址栏里。<ul>
+<li>如果传递的是密码和其他敏感信息，请不要使用 GET 方法</li>
+<li>请求字符串最多只能有 1024 个字符串</li>
+<li>通过 QUERY_STRING 头传递和访问</li>
+</ul>
+</li>
+<li>Servlet 使用 doGet()方法处理这类型的请求</li>
+</ul>
+<h4 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h4><ul>
+<li>POST 方法打包信息的方式与 GET 方法基本相同，但是 POST 方法不上把信息作为 URL 中？字符后的文本进行发送，而是把这些信息作为一个单独的信息。</li>
+<li>消息以标准输出的形式传到后台程序，可以进行解析和使用这些标准输出</li>
+<li>Servlet 使用 doPost()方法来处理这种类型的请求</li>
+</ul>
+<h4 id="使用-Servlet-读取表单的数据"><a href="#使用-Servlet-读取表单的数据" class="headerlink" title="使用 Servlet 读取表单的数据"></a>使用 Servlet 读取表单的数据</h4><ul>
+<li>Servlet 处理表单数据，这些数据会根据不同的情况使用不同的方法自动解析<ul>
+<li><code>getParameter()</code><ul>
+<li>调用<code>request.getParameter()</code>的方法来获取表单参数的值</li>
+</ul>
+</li>
+<li><code>getParameterValues()</code><ul>
+<li>如果参数出现一次以上，则会调用该方法，并返回多个值，例如复选框</li>
+</ul>
+</li>
+<li><code>getParameterNames()</code><ul>
+<li>如果你想要得到当前请求中的所有参数的完成列表，则调用该方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>注释：<code>request.getParameter(String name)</code> 是获取相应名的数据，如果有重复的名，则返回第一个值，接受一般变量，如 text 类型;</p>
+<p><code>request.getParameterValues(String name)</code>是获取如 checkbox类(名字相同，但值有多个)的数据，接受数组变量，如checkbox类型</p>
+<h3 id="Servlet-客户端-HTTP-请求"><a href="#Servlet-客户端-HTTP-请求" class="headerlink" title="Servlet 客户端 HTTP 请求"></a>Servlet 客户端 HTTP 请求</h3><ul>
+<li>当浏览器请求网页时，他会向 Web 服务器发送特定信息，这些信息不能被直接读取，因为这些信息时作为 HTTP 请求的头的一部分进行传输的。</li>
+</ul>
+<h4 id="读取-HTTP-头的方法"><a href="#读取-HTTP-头的方法" class="headerlink" title="读取 HTTP 头的方法"></a>读取 HTTP 头的方法</h4><ul>
+<li>可以在Servlet 程序中读取 HTTP 头，这些方法通过 HTTPServletRequest对象可用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法及其描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Cookie[] getCookies()</strong> //返回一个数组，包含客户端发送该请求的所有的 Cookie 对象。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Enumeration getAttributeNames()</strong> //返回一个枚举，包含提供给该请求可用的属性名称。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Enumeration getHeaderNames()</strong> //返回一个枚举，包含在该请求中包含的所有的头名。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Enumeration getParameterNames()</strong> //返回一个 String 对象的枚举，包含在该请求中包含的参数的名称。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>HttpSession getSession()</strong> //返回与该请求关联的当前 session 会话，或者如果请求没有 session 会话，则创建一个。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>HttpSession getSession(boolean create)</strong> //返回与该请求关联的当前 HttpSession，或者如果没有当前会话，且创建是真的，则返回一个新的 session 会话。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Locale getLocale()</strong> //基于 Accept-Language 头，返回客户端接受内容的首选的区域设置。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Object getAttribute(String name)</strong> //以对象形式返回已命名属性的值，如果没有给定名称的属性存在，则返回 null。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>ServletInputStream getInputStream()</strong> //使用 ServletInputStream，以二进制数据形式检索请求的主体。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>String getAuthType()</strong> //返回用于保护 Servlet 的身份验证方案的名称，例如，”BASIC” 或 “SSL”，如果JSP没有受到保护则返回 null。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>String getCharacterEncoding()</strong> //返回请求主体中使用的字符编码的名称。</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>String getContentType()</strong>//返回请求主体的 MIME 类型，如果不知道类型则返回 null。</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>String getContextPath()</strong> //返回指示请求上下文的请求 URI 部分。</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>String getHeader(String name)</strong> //以字符串形式返回指定的请求头的值。</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>String getMethod()</strong> //返回请求的 HTTP 方法的名称，例如，GET、POST 或 PUT。</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>String getParameter(String name)</strong> //以字符串形式返回请求参数的值，或者如果参数不存在则返回 null。</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>String getPathInfo()</strong> //请求发出时，返回与客户端发送的 URL 相关的任何额外的路径信息。</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>String getProtocol()</strong> //返回请求协议的名称和版本。</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>String getQueryString()</strong> //返回包含在路径后的请求 URL 中的查询字符串。</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>String getRemoteAddr()</strong> //返回发送请求的客户端的互联网协议（IP）地址。</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>String getRemoteHost()</strong> //返回发送请求的客户端的完全限定名称。</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>String getRemoteUser()</strong> //如果用户已通过身份验证，则返回发出请求的登录用户，或者如果用户未通过身份验证，则返回 null。</td>
+</tr>
+<tr>
+<td>23</td>
+<td><strong>String getRequestURI()</strong> //从协议名称直到 HTTP 请求的第一行的查询字符串中，返回该请求的 URL 的一部分。</td>
+</tr>
+<tr>
+<td>24</td>
+<td><strong>String getRequestedSessionId()</strong> //返回由客户端指定的 session 会话 ID。</td>
+</tr>
+<tr>
+<td>25</td>
+<td><strong>String getServletPath()</strong> //返回调用 JSP 的请求的 URL 的一部分。</td>
+</tr>
+<tr>
+<td>26</td>
+<td><strong>String[] getParameterValues(String name)</strong> //返回一个字符串对象的数组，包含所有给定的请求参数的值，如果参数不存在则返回 null。</td>
+</tr>
+<tr>
+<td>27</td>
+<td><strong>boolean isSecure()</strong> //返回一个布尔值，指示请求是否使用安全通道，如 HTTPS。</td>
+</tr>
+<tr>
+<td>28</td>
+<td><strong>int getContentLength()</strong> //以字节为单位返回请求主体的长度，并提供输入流，或者如果长度未知则返回 -1。</td>
+</tr>
+<tr>
+<td>29</td>
+<td><strong>int getIntHeader(String name)</strong> //返回指定的请求头的值为一个 int 值。</td>
+</tr>
+<tr>
+<td>30</td>
+<td><strong>int getServerPort()</strong> //返回接收到这个请求的端口号。</td>
+</tr>
+<tr>
+<td>31</td>
+<td><strong>int getParameterMap()</strong> //将参数封装成 Map 类型。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>HTTP Header 请求实例<ul>
+<li>实例使用 HttpServletRequest 的 <strong>getHeaderNames()</strong> 方法读取 HTTP 头信息。该方法返回一个枚举，包含与当前的 HTTP 请求相关的头信息</li>
+<li>一旦我们有一个枚举，我们可以以标准方式循环枚举，使用 <em>hasMoreElements()</em> 方法来确定何时停止，使用 <em>nextElement()</em> 方法来获取每个参数的名称</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">//导入必需的 java 库</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.util.Enumeration;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">@WebServlet("/DisplayHeader")</span><br><span class="line"></span><br><span class="line">//扩展 HttpServlet 类</span><br><span class="line">public class DisplayHeader extends HttpServlet {</span><br><span class="line"></span><br><span class="line">    // 处理 GET 方法请求的方法</span><br><span class="line">    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException</span><br><span class="line">    {</span><br><span class="line">        // 设置响应内容类型</span><br><span class="line">        response.setContentType("text/html;charset=UTF-8");</span><br><span class="line"></span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        String title = "HTTP Header 请求实例";</span><br><span class="line">        String docType =</span><br><span class="line">            "&lt;!DOCTYPE html&gt; \n";</span><br><span class="line">            out.println(docType +</span><br><span class="line">            "&lt;html&gt;\n" +</span><br><span class="line">            "&lt;head&gt;&lt;meta charset=\"utf-8\"&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n"+</span><br><span class="line">            "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" +</span><br><span class="line">            "&lt;h1 align=\"center\"&gt;" + title + "&lt;/h1&gt;\n" +</span><br><span class="line">            "&lt;table width=\"100%\" border=\"1\" align=\"center\"&gt;\n" +</span><br><span class="line">            "&lt;tr bgcolor=\"#949494\"&gt;\n" +</span><br><span class="line">            "&lt;th&gt;Header 名称&lt;/th&gt;&lt;th&gt;Header 值&lt;/th&gt;\n"+</span><br><span class="line">            "&lt;/tr&gt;\n");</span><br><span class="line"></span><br><span class="line">        Enumeration headerNames = request.getHeaderNames();</span><br><span class="line"></span><br><span class="line">        while(headerNames.hasMoreElements()) {</span><br><span class="line">            String paramName = (String)headerNames.nextElement();</span><br><span class="line">            out.print("&lt;tr&gt;&lt;td&gt;" + paramName + "&lt;/td&gt;\n");</span><br><span class="line">            String paramValue = request.getHeader(paramName);</span><br><span class="line">            out.println("&lt;td&gt; " + paramValue + "&lt;/td&gt;&lt;/tr&gt;\n");</span><br><span class="line">        }</span><br><span class="line">        out.println("&lt;/table&gt;\n&lt;/body&gt;&lt;/html&gt;");</span><br><span class="line">    }</span><br><span class="line">    // 处理 POST 方法请求的方法</span><br><span class="line">    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {</span><br><span class="line">        doGet(request, response);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//对于的web.xml配置</span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;  </span><br><span class="line">&lt;web-app&gt;  </span><br><span class="line">  &lt;servlet&gt;  </span><br><span class="line">    &lt;!-- 类名 --&gt;  </span><br><span class="line">    &lt;servlet-name&gt;DisplayHeader&lt;/servlet-name&gt;  </span><br><span class="line">    &lt;!-- 所在的包 --&gt;  </span><br><span class="line">    &lt;servlet-class&gt;com.runoob.test.DisplayHeader&lt;/servlet-class&gt;  </span><br><span class="line">  &lt;/servlet&gt;  </span><br><span class="line">  &lt;servlet-mapping&gt;  </span><br><span class="line">    &lt;servlet-name&gt;DisplayHeader&lt;/servlet-name&gt;  </span><br><span class="line">    &lt;!-- 访问的网址 --&gt;  </span><br><span class="line">    &lt;url-pattern&gt;/TomcatTest/DisplayHeader&lt;/url-pattern&gt;  </span><br><span class="line">  &lt;/servlet-mapping&gt;  </span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="Servlet-服务器-HTTP-响应"><a href="#Servlet-服务器-HTTP-响应" class="headerlink" title="Servlet 服务器 HTTP 响应"></a>Servlet 服务器 HTTP 响应</h3><ul>
+<li>当一个 Web 服务器响应一个 HTTP 请求时，响应通常包括一个状态行、一些响应报头、一个空行和文档</li>
+</ul>
+<h4 id="设置-HTTP-响应报头的方法"><a href="#设置-HTTP-响应报头的方法" class="headerlink" title="设置 HTTP 响应报头的方法"></a>设置 HTTP 响应报头的方法</h4><ul>
+<li>下面的方法可用于在 Servlet 程序中设置 HTTP 响应报头</li>
+<li>这些方法通过 <em>HttpServletResponse</em> 对象可用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法以及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>String encodeRedirectURL(String url)</strong> //为 sendRedirect 方法中使用的指定的 URL 进行编码，或者如果编码不是必需的，则返回 URL 未改变。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>String encodeURL(String url)</strong> //对包含 session 会话 ID 的指定 URL 进行编码，或者如果编码不是必需的，则返回 URL 未改变。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>boolean containsHeader(String name)</strong> //返回一个布尔值，指示是否已经设置已命名的响应报头。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>boolean isCommitted()</strong> //返回一个布尔值，指示响应是否已经提交。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>void addCookie(Cookie cookie)</strong> //把指定的 cookie 添加到响应。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>void addDateHeader(String name, long date)</strong> //添加一个带有给定的名称和日期值的响应报头。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>void addHeader(String name, String value)</strong> //添加一个带有给定的名称和值的响应报头。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>void addIntHeader(String name, int value)</strong> //添加一个带有给定的名称和整数值的响应报头。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>void flushBuffer()</strong> //强制任何在缓冲区中的内容被写入到客户端。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>void reset()</strong> //清除缓冲区中存在的任何数据，包括状态码和头。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>void resetBuffer()</strong> //清除响应中基础缓冲区的内容，不清除状态码和头。</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>void sendError(int sc)</strong> //使用指定的状态码发送错误响应到客户端，并清除缓冲区。</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>void sendError(int sc, String msg)</strong> //使用指定的状态发送错误响应到客户端。</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>void sendRedirect(String location)</strong> //使用指定的重定向位置 URL 发送临时重定向响应到客户端。</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>void setBufferSize(int size)</strong> //为响应主体设置首选的缓冲区大小。</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>void setCharacterEncoding(String charset)</strong> //设置被发送到客户端的响应的字符编码（MIME 字符集）例如，UTF-8。</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>void setContentLength(int len)</strong> //设置在 HTTP Servlet 响应中的内容主体的长度，该方法设置 HTTP Content-Length 头。</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>void setContentType(String type)</strong> //如果响应还未被提交，设置被发送到客户端的响应的内容类型。</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>void setDateHeader(String name, long date)</strong> //设置一个带有给定的名称和日期值的响应报头。</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>void setHeader(String name, String value)</strong> //设置一个带有给定的名称和值的响应报头。</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>void setIntHeader(String name, int value)</strong> //设置一个带有给定的名称和整数值的响应报头。</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>void setLocale(Locale loc)</strong> //如果响应还未被提交，设置响应的区域。</td>
+</tr>
+<tr>
+<td>23</td>
+<td><strong>void setStatus(int sc)</strong> //为该响应设置状态码。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>HTTP Header 响应实例<ul>
+<li>前面的实例中看到 setContentType() 方法，下面的实例也使用了同样的方法，此外，我们会用 <strong>setIntHeader()</strong> 方法来设置 <strong>Refresh</strong> 头</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">//导入必需的 java 库</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Calendar;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">@WebServlet("/Refresh")</span><br><span class="line"></span><br><span class="line">//扩展 HttpServlet 类</span><br><span class="line">public class Refresh extends HttpServlet {</span><br><span class="line"></span><br><span class="line">    // 处理 GET 方法请求的方法</span><br><span class="line">      public void doGet(HttpServletRequest request,</span><br><span class="line">                        HttpServletResponse response)</span><br><span class="line">                throws ServletException, IOException</span><br><span class="line">      {</span><br><span class="line">          // 设置刷新自动加载时间为 5 秒</span><br><span class="line">          response.setIntHeader("Refresh", 5);</span><br><span class="line">          // 设置响应内容类型</span><br><span class="line">          response.setContentType("text/html;charset=UTF-8");</span><br><span class="line">         </span><br><span class="line">          //使用默认时区和语言环境获得一个日历  </span><br><span class="line">          Calendar cale = Calendar.getInstance();  </span><br><span class="line">          //将Calendar类型转换成Date类型  </span><br><span class="line">          Date tasktime=cale.getTime();  </span><br><span class="line">          //设置日期输出的格式  </span><br><span class="line">          SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  </span><br><span class="line">          //格式化输出  </span><br><span class="line">          String nowTime = df.format(tasktime);</span><br><span class="line">          PrintWriter out = response.getWriter();</span><br><span class="line">          String title = "自动刷新 Header 设置 ;</span><br><span class="line">          String docType =</span><br><span class="line">          "&lt;!DOCTYPE html&gt;\n";</span><br><span class="line">          out.println(docType +</span><br><span class="line">            "&lt;html&gt;\n" +</span><br><span class="line">            "&lt;head&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n"+</span><br><span class="line">            "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" +</span><br><span class="line">            "&lt;h1 align=\"center\"&gt;" + title + "&lt;/h1&gt;\n" +</span><br><span class="line">            "&lt;p&gt;当前时间是：" + nowTime + "&lt;/p&gt;\n");</span><br><span class="line">      }</span><br><span class="line">      // 处理 POST 方法请求的方法</span><br><span class="line">      public void doPost(HttpServletRequest request,</span><br><span class="line">                         HttpServletResponse response)</span><br><span class="line">          throws ServletException, IOException {</span><br><span class="line">         doGet(request, response);</span><br><span class="line">      }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//对应的 web.xml 配置</span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;  </span><br><span class="line">&lt;web-app&gt;  </span><br><span class="line">  &lt;servlet&gt;  </span><br><span class="line">     &lt;!-- 类名 --&gt;  </span><br><span class="line">    &lt;servlet-name&gt;Refresh&lt;/servlet-name&gt;  </span><br><span class="line">    &lt;!-- 所在的包 --&gt;  </span><br><span class="line">    &lt;servlet-class&gt;com.runoob.test.Refresh&lt;/servlet-class&gt;  </span><br><span class="line">  &lt;/servlet&gt;  </span><br><span class="line">  &lt;servlet-mapping&gt;  </span><br><span class="line">    &lt;servlet-name&gt;Refresh&lt;/servlet-name&gt;  </span><br><span class="line">    &lt;!-- 访问的网址 --&gt;  </span><br><span class="line">    &lt;url-pattern&gt;/TomcatTest/Refresh&lt;/url-pattern&gt;  </span><br><span class="line">    &lt;/servlet-mapping&gt;  </span><br><span class="line">&lt;/web-app&gt; </span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="Servlet-HTTP-状态码"><a href="#Servlet-HTTP-状态码" class="headerlink" title="Servlet HTTP 状态码"></a>Servlet HTTP 状态码</h3><ul>
+<li><p>HTTP 请求和 HTTP 响应消息的格式是类似的</p>
+<ul>
+<li>初始状态行 + 回车换行符（回车+换行）</li>
+<li>零个或多个标题行+回车换行符</li>
+<li>一个空白行，即回车换行符</li>
+<li>一个可选的消息主体，比如文件、查询数据或查询输出</li>
+</ul>
+</li>
+<li><p>例如访问出错后显示的数据，就有状态码</p>
+</li>
+<li><p>服务器的响应头例子</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//状态行包括 HTTP 版本（在本例中为 HTTP/1.1）、一个状态码（在本例中为 200）和一个对应于状态码的短消息（在本例中为 OK）</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Header2: ...</span><br><span class="line">...</span><br><span class="line">HeaderN: ...</span><br><span class="line">  (Blank Line)</span><br><span class="line">&lt;!doctype ...&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;...&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="Servlet-编写过滤器"><a href="#Servlet-编写过滤器" class="headerlink" title="Servlet 编写过滤器"></a>Servlet 编写过滤器</h3><ul>
+<li><p>Servlet 过滤器可以<strong>动态地拦截请求和响应</strong>，以变换或使用包含在请求或响应中的信息</p>
+</li>
+<li><p>可以将一个或多个 Servlet 过滤器附加到一个 Servlet 或一组 Servlet</p>
+</li>
+<li><p>过滤器也可以附加到 JavaServer Pages (JSP) 文件和 HTML 页面。调用 Servlet 前调用所有附加的 Servlet 过滤器</p>
+</li>
+<li><p>Servlet 过滤器是可用于 Servlet 编程的 Java 类，可以实现以下目的</p>
+<ul>
+<li>在客户端的请求访问后端资源之前，拦截这些请求</li>
+<li>在服务器的响应发送回客户端之前，处理这些响应</li>
+</ul>
+</li>
+<li><p>过滤器通过 Web 部署描述符（web.xml）中的 XML 标签来声明，然后映射到您的应用程序的部署描述符中的 Servlet 名称或 URL 模式</p>
+<ul>
+<li>当 Web 容器启动 Web 应用程序时，它会为您在部署描述符中声明的每一个过滤器创建一个实例</li>
+<li>Filter的执行顺序与在web.xml配置文件中的配置顺序一致，<strong>一般把Filter配置在所有的Servlet之前</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="Servlet-过滤器方法"><a href="#Servlet-过滤器方法" class="headerlink" title="Servlet 过滤器方法"></a>Servlet 过滤器方法</h4><ul>
+<li>过滤器是一个实现了 javax.servlet.Filter 接口的 Java 类<ul>
+<li>javax.servlet.Filter 接口定义了三个方法</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法及其描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>public void doFilter (ServletRequest, ServletResponse, FilterChain)</strong> //该方法完成实际的过滤操作，当客户端请求方法与过滤器设置匹配的URL时，Servlet容器将先调用过滤器的doFilter方法。FilterChain用户访问后续过滤器。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>public void init(FilterConfig filterConfig)</strong> //web 应用程序启动时，web 服务器将创建Filter 的实例对象，并调用其init方法，读取web.xml配置，完成对象的初始化功能，从而为后续的用户请求作好拦截的准备工作（filter对象只会创建一次，init方法也只会执行一次）。开发人员通过init方法的参数，可获得代表当前filter配置信息的FilterConfig对象。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public void destroy()</strong> //Servlet容器在销毁过滤器实例前调用该方法，在该方法中释放Servlet过滤器占用的资源。</td>
+</tr>
+</tbody></table>
+<h4 id="Servlet-过滤器实例"><a href="#Servlet-过滤器实例" class="headerlink" title="Servlet 过滤器实例"></a>Servlet 过滤器实例</h4><ul>
+<li>Servlet 过滤器的实例，将输出网站名称和地址</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.runoob.test;</span><br><span class="line"></span><br><span class="line">//导入必需的 java 库</span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">//实现 Filter 类</span><br><span class="line">public class LogFilter implements Filter  {</span><br><span class="line">    public void  init(FilterConfig config) throws ServletException {</span><br><span class="line">        // 获取初始化参数</span><br><span class="line">        String site = config.getInitParameter("Site"); </span><br><span class="line"></span><br><span class="line">        // 输出初始化参数</span><br><span class="line">        System.out.println("网站名称: " + site); </span><br><span class="line">    }</span><br><span class="line">    public void  doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws java.io.IOException, ServletException {</span><br><span class="line"></span><br><span class="line">        // 输出站点名称</span><br><span class="line">        System.out.println("站点网址：http://www.runoob.com");</span><br><span class="line"></span><br><span class="line">        // 把请求传回过滤链</span><br><span class="line">        chain.doFilter(request,response);</span><br><span class="line">    }</span><br><span class="line">    public void destroy( ){</span><br><span class="line">        /* 在 Filter 实例被 Web 容器从服务移除之前调用 */</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>DisplayHeader例子</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">package com.runoob.test;</span><br><span class="line"></span><br><span class="line">//导入必需的 java 库</span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">//实现 Filter 类</span><br><span class="line">public class LogFilter implements Filter  {</span><br><span class="line">    public void  init(FilterConfig config) throws ServletException {</span><br><span class="line">        // 获取初始化参数</span><br><span class="line">        String site = config.getInitParameter("Site"); </span><br><span class="line"></span><br><span class="line">        // 输出初始化参数</span><br><span class="line">        System.out.println("网站名称: " + site); </span><br><span class="line">    }</span><br><span class="line">    public void  doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws java.io.IOException, ServletException {</span><br><span class="line"></span><br><span class="line">        // 输出站点名称</span><br><span class="line">        System.out.println("站点网址：http://www.runoob.com");</span><br><span class="line"></span><br><span class="line">        // 把请求传回过滤链</span><br><span class="line">        chain.doFilter(request,response);</span><br><span class="line">    }</span><br><span class="line">    public void destroy( ){</span><br><span class="line">        /* 在 Filter 实例被 Web 容器从服务移除之前调用 */</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line">这边使用前文提到的 DisplayHeader.java 为例子：</span><br><span class="line"></span><br><span class="line">//导入必需的 java 库</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.util.Enumeration;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">@WebServlet("/DisplayHeader")</span><br><span class="line"></span><br><span class="line">//扩展 HttpServlet 类</span><br><span class="line">public class DisplayHeader extends HttpServlet {</span><br><span class="line"></span><br><span class="line">    // 处理 GET 方法请求的方法</span><br><span class="line">    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException</span><br><span class="line">    {</span><br><span class="line">        // 设置响应内容类型</span><br><span class="line">        response.setContentType("text/html;charset=UTF-8");</span><br><span class="line"></span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        String title = "HTTP Header 请求实例 - 菜鸟教程实例";</span><br><span class="line">        String docType =</span><br><span class="line">            "&lt;!DOCTYPE html&gt; \n";</span><br><span class="line">            out.println(docType +</span><br><span class="line">            "&lt;html&gt;\n" +</span><br><span class="line">            "&lt;head&gt;&lt;meta charset=\"utf-8\"&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n"+</span><br><span class="line">            "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" +</span><br><span class="line">            "&lt;h1 align=\"center\"&gt;" + title + "&lt;/h1&gt;\n" +</span><br><span class="line">            "&lt;table width=\"100%\" border=\"1\" align=\"center\"&gt;\n" +</span><br><span class="line">            "&lt;tr bgcolor=\"#949494\"&gt;\n" +</span><br><span class="line">            "&lt;th&gt;Header 名称&lt;/th&gt;&lt;th&gt;Header 值&lt;/th&gt;\n"+</span><br><span class="line">            "&lt;/tr&gt;\n");</span><br><span class="line"></span><br><span class="line">        Enumeration headerNames = request.getHeaderNames();</span><br><span class="line"></span><br><span class="line">        while(headerNames.hasMoreElements()) {</span><br><span class="line">            String paramName = (String)headerNames.nextElement();</span><br><span class="line">            out.print("&lt;tr&gt;&lt;td&gt;" + paramName + "&lt;/td&gt;\n");</span><br><span class="line">            String paramValue = request.getHeader(paramName);</span><br><span class="line">            out.println("&lt;td&gt; " + paramValue + "&lt;/td&gt;&lt;/tr&gt;\n");</span><br><span class="line">        }</span><br><span class="line">        out.println("&lt;/table&gt;\n&lt;/body&gt;&lt;/html&gt;");</span><br><span class="line">    }</span><br><span class="line">    // 处理 POST 方法请求的方法</span><br><span class="line">    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {</span><br><span class="line">        doGet(request, response);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>Web.xml 中的 Servlet 过滤器映射（Servlet Filter Mapping）<ul>
+<li>定义过滤器，然后映射到一个 URL 或 Servlet，这与定义 Servlet，然后映射到一个 URL 模式方式大致相同</li>
+<li>部署描述符文件 <strong>web.xml</strong> 中为 filter 标签创建下面的条目：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;  </span><br><span class="line">&lt;web-app&gt;  </span><br><span class="line">&lt;filter&gt;</span><br><span class="line">  &lt;filter-name&gt;LogFilter&lt;/filter-name&gt;</span><br><span class="line">  &lt;filter-class&gt;com.runoob.test.LogFilter&lt;/filter-class&gt;</span><br><span class="line">  &lt;init-param&gt;</span><br><span class="line">    &lt;param-name&gt;Site&lt;/param-name&gt;</span><br><span class="line">    &lt;param-value&gt;菜鸟教程&lt;/param-value&gt;</span><br><span class="line">  &lt;/init-param&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">  &lt;filter-name&gt;LogFilter&lt;/filter-name&gt;</span><br><span class="line">  &lt;url-pattern&gt;/*&lt;/url-pattern&gt; 	//过滤器适用于所有的 Servlet，因为我们在配置中指定 /* </span><br><span class="line">&lt;/filter-mapping&gt;</span><br><span class="line">&lt;servlet&gt;  </span><br><span class="line">  &lt;!-- 类名 --&gt;  </span><br><span class="line">  &lt;servlet-name&gt;DisplayHeader&lt;/servlet-name&gt;  </span><br><span class="line">  &lt;!-- 所在的包 --&gt;  </span><br><span class="line">  &lt;servlet-class&gt;com.runoob.test.DisplayHeader&lt;/servlet-class&gt;  </span><br><span class="line">&lt;/servlet&gt;  </span><br><span class="line">&lt;servlet-mapping&gt;  </span><br><span class="line">  &lt;servlet-name&gt;DisplayHeader&lt;/servlet-name&gt;  </span><br><span class="line">  &lt;!-- 访问的网址 --&gt;  </span><br><span class="line">  &lt;url-pattern&gt;/TomcatTest/DisplayHeader&lt;/url-pattern&gt;  </span><br><span class="line">&lt;/servlet-mapping&gt;  </span><br><span class="line">&lt;/web-app&gt; </span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="使用多个过滤器"><a href="#使用多个过滤器" class="headerlink" title="使用多个过滤器"></a>使用多个过滤器</h4><ul>
+<li>Web 应用程序可以根据特定的目的定义若干个不同的过滤器</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">   &lt;filter-name&gt;LogFilter&lt;/filter-name&gt;</span><br><span class="line">   &lt;filter-class&gt;com.runoob.test.LogFilter&lt;/filter-class&gt;</span><br><span class="line">   &lt;init-param&gt;</span><br><span class="line">      &lt;param-name&gt;test-param&lt;/param-name&gt;</span><br><span class="line">      &lt;param-value&gt;Initialization Paramter&lt;/param-value&gt; //初始化参数</span><br><span class="line">   &lt;/init-param&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">&lt;filter&gt;</span><br><span class="line">   &lt;filter-name&gt;AuthenFilter&lt;/filter-name&gt;</span><br><span class="line">   &lt;filter-class&gt;com.runoob.test.AuthenFilter&lt;/filter-class&gt;</span><br><span class="line">   &lt;init-param&gt;</span><br><span class="line">      &lt;param-name&gt;test-param&lt;/param-name&gt;</span><br><span class="line">      &lt;param-value&gt;Initialization Paramter&lt;/param-value&gt;</span><br><span class="line">   &lt;/init-param&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">   &lt;filter-name&gt;LogFilter&lt;/filter-name&gt;</span><br><span class="line">   &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">   &lt;filter-name&gt;AuthenFilter&lt;/filter-name&gt;</span><br><span class="line">   &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="过滤器的应用顺序"><a href="#过滤器的应用顺序" class="headerlink" title="过滤器的应用顺序"></a>过滤器的应用顺序</h4><ul>
+<li>web.xml 中的 filter-mapping 元素的顺序决定了 Web 容器应用过滤器到 Servlet 的顺序</li>
+</ul>
+<h4 id="web-xml-配置各个节点说明"><a href="#web-xml-配置各个节点说明" class="headerlink" title="web.xml 配置各个节点说明"></a>web.xml 配置各个节点说明</h4><ul>
+<li><p><code>&lt;filter&gt;</code></p>
+<p>指定一个过滤器</p>
+<ul>
+<li><code>&lt;filter-name&gt;</code>用于为过滤器指定一个名字，该元素的内容不能为空。</li>
+<li><code>&lt;filter-class&gt;</code>元素用于指定过滤器的完整的限定类名。</li>
+<li><code>&lt;init-param&gt;</code>元素用于为过滤器指定初始化参数，它的子元素<code>&lt;param-name&gt;</code>指定参数的名字，<code>&lt;param-value&gt;</code>指定参数的值。</li>
+<li>在过滤器中，可以使用<code>FilterConfig</code>接口对象来访问初始化参数。</li>
+</ul>
+</li>
+<li><p><code>&lt;filter-mapping&gt;</code></p>
+<p>元素用于设置一个 Filter 所负责拦截的资源。一个Filter拦截的资源可通过两种方式来指定：Servlet 名称和资源访问的请求路径</p>
+<ul>
+<li><code>&lt;filter-name&gt;</code>子元素用于设置filter的注册名称。该值必须是在<code>&lt;filter&gt;</code>元素中声明过的过滤器的名字</li>
+<li><code>&lt;url-pattern&gt;</code>设置 filter 所拦截的请求路径(过滤器关联的URL样式)</li>
+</ul>
+</li>
+<li><p><code>&lt;servlet-name&gt;</code>指定过滤器所拦截的Servlet名称。</p>
+</li>
+<li><p><code>&lt;dispatcher&gt;</code>指定过滤器所拦截的资源被 Servlet 容器调用的方式，可以是<code>REQUEST</code>,<code>INCLUDE</code>,<code>FORWARD</code>和<code>ERROR</code>之一，默认<code>REQUEST</code>。用户可以设置多个<code>&lt;dispatcher&gt;</code>子元素用来指定 Filter 对资源的多种调用方式进行拦截。</p>
+</li>
+<li><p><code>&lt;dispatcher&gt;</code></p>
+<p>子元素可以设置的值及其意义</p>
+<ul>
+<li><code>REQUEST</code>：当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include()或forward()方法访问时，那么该过滤器就不会被调用。</li>
+<li><code>INCLUDE</code>：如果目标资源是通过RequestDispatcher的include()方法访问时，那么该过滤器将被调用。除此之外，该过滤器不会被调用。</li>
+<li><code>FORWARD</code>：如果目标资源是通过RequestDispatcher的forward()方法访问时，那么该过滤器将被调用，除此之外，该过滤器不会被调用。</li>
+<li><code>ERROR</code>：如果目标资源是通过声明式异常处理机制调用时，那么该过滤器将被调用。除此之外，过滤器不会被调用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="实用例子"><a href="#实用例子" class="headerlink" title="实用例子"></a>实用例子</h4><ul>
+<li>过滤器中我们可以根据 doFilter() 方法中的 request 对象获取表单参数信息，例如我们可以获取到请求的用户名和密码进行逻辑处理，也可以通过 response 对用户做出回应。</li>
+<li>比如如果验证用户名不正确，禁止用户访问 web 资源，并且向浏览器输出提示，告诉用户用户名或者密码不正确等等</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public void doFilter(ServletRequest req, ServletResponse resp,</span><br><span class="line">FilterChain chain) throws IOException, ServletException {</span><br><span class="line"></span><br><span class="line">    //获取请求信息(测试时可以通过get方式在URL中添加name)</span><br><span class="line">    //http://localhost:8080/servlet_demo/helloword?name=123</span><br><span class="line">    String name = req.getParameter("name");</span><br><span class="line"></span><br><span class="line">    // 过滤器核心代码逻辑</span><br><span class="line">    System.out.println("过滤器获取请求参数:"+name);</span><br><span class="line">    System.out.println("第二个过滤器执行--网站名称：www.runoob.com");</span><br><span class="line"></span><br><span class="line">    if("123".equals(name)){</span><br><span class="line">        // 把请求传回过滤链</span><br><span class="line">        chain.doFilter(req, resp);</span><br><span class="line">    }else{</span><br><span class="line">        //设置返回内容类型</span><br><span class="line">        resp.setContentType("text/html;charset=GBK");</span><br><span class="line"></span><br><span class="line">        //在页面输出响应信息</span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        out.print("&lt;b&gt;name不正确，请求被拦截，不能访问web资源&lt;/b&gt;");</span><br><span class="line">        System.out.println("name不正确，请求被拦截，不能访问web资源");</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="Servlet-异常处理"><a href="#Servlet-异常处理" class="headerlink" title="Servlet 异常处理"></a>Servlet 异常处理</h3><ul>
+<li><p>当一个 Servlet 抛出一个异常时，Web 容器在使用了 exception-type 元素的 <strong>web.xml</strong> 中搜索与抛出异常类型相匹配的配置。</p>
+</li>
+<li><p>您必须在 web.xml 中使用 <strong>error-page</strong> 元素来指定对特定<strong>异常</strong> 或 HTTP <strong>状态码</strong> 作出相应的 Servlet 调用。</p>
+</li>
+<li><p>例子</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- servlet 定义 --&gt;</span><br><span class="line">&lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;ErrorHandler&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;ErrorHandler&lt;/servlet-class&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;!-- servlet 映射 --&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;ErrorHandler&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/ErrorHandler&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- error-code 相关的错误页面 --&gt;</span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">    &lt;error-code&gt;404&lt;/error-code&gt;</span><br><span class="line">    &lt;location&gt;/ErrorHandler&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">    &lt;error-code&gt;403&lt;/error-code&gt;</span><br><span class="line">    &lt;location&gt;/ErrorHandler&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- exception-type 相关的错误页面 --&gt;</span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">    &lt;exception-type&gt;</span><br><span class="line">          javax.servlet.ServletException</span><br><span class="line">    &lt;/exception-type &gt;</span><br><span class="line">    &lt;location&gt;/ErrorHandler&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line"></span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">    &lt;exception-type&gt;java.io.IOException&lt;/exception-type &gt;</span><br><span class="line">    &lt;location&gt;/ErrorHandler&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//如果您想对所有的异常有一个通用的错误处理程序，那么应该定义下面的 error-page，而不是为每个异常定义单独的 error-page 元素</span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">    &lt;exception-type&gt;java.lang.Throwable&lt;/exception-type &gt;</span><br><span class="line">    &lt;location&gt;/ErrorHandler&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>关于上面的 web.xml 异常处理要注意的点<ul>
+<li>Servlet ErrorHandler 与其他的 Servlet 的定义方式一样，且在 web.xml 中进行配置。</li>
+<li>如果有错误状态代码出现，不管为 404（Not Found 未找到）或 403（Forbidden 禁止），则会调用 ErrorHandler 的 Servlet。</li>
+<li>如果 Web 应用程序抛出 <em>ServletException</em> 或 <em>IOException</em>，那么 Web 容器会调用 ErrorHandler 的 Servlet。</li>
+<li>您可以定义不同的错误处理程序来处理不同类型的错误或异常。上面的实例是非常通用的，希望您能通过实例理解基本的概念。</li>
+</ul>
+</li>
+</ul>
+<h4 id="请求属性-错误-x2F-异常"><a href="#请求属性-错误-x2F-异常" class="headerlink" title="请求属性 - 错误/异常"></a>请求属性 - 错误/异常</h4><ul>
+<li>用来分析错误/异常的性质</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>属性以及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>javax.servlet.error.status_code</strong> //该属性给出状态码，状态码可被存储，并在存储为 java.lang.Integer 数据类型后可被分析。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>javax.servlet.error.exception_type</strong> //属性给出异常类型的信息，异常类型可被存储，并在存储为 java.lang.Class 数据类型后可被分析。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>javax.servlet.error.message</strong> //该属性给出确切错误消息的信息，信息可被存储，并在存储为 java.lang.String 数据类型后可被分析。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>javax.servlet.error.request_uri</strong> //该属性给出有关 URL 调用 Servlet 的信息，信息可被存储，并在存储为 java.lang.String 数据类型后可被分析。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>javax.servlet.error.exception</strong> //属性给出异常产生的信息，信息可被存储，并在存储为 java.lang.Throwable 数据类型后可被分析。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>javax.servlet.error.servlet_name</strong> //属性给出 Servlet 的名称，名称可被存储，并在存储为 java.lang.String 数据类型后可被分析。</td>
+</tr>
+</tbody></table>
+<h3 id="Servlet-Cookie-处理"><a href="#Servlet-Cookie-处理" class="headerlink" title="Servlet Cookie 处理"></a>Servlet Cookie 处理</h3><ul>
+<li><p>Cookie 是存储在<strong>客户端</strong>计算机上的<strong>文本文件</strong>，并保留了各种<strong>跟踪信息</strong>。</p>
+</li>
+<li><p>Java Servlet 支持 HTTP Cookie。</p>
+</li>
+<li><p>识别返回用户包括三个步骤</p>
+<ul>
+<li><p>服务器脚本向浏览器发送一组 Cookie。例如：姓名、年龄或识别号码等</p>
+</li>
+<li><p>浏览器将这些信息存储在本地计算机上，以备将来使用</p>
+</li>
+<li><p>当下一次浏览器向 Web 服务器发送任何请求时，浏览器会把这些 Cookie 信息发送到服务器，服务器将使用这些信息来识别用户</p>
+</li>
+</ul>
+</li>
+<li><p><em>Servlet Cookie 处理需要对中文进行编码与解码</em></p>
+<ul>
+<li>编码<ul>
+<li><code>String   str   =   java.net.URLEncoder.encode("中文"，"UTF-8");</code></li>
+</ul>
+</li>
+<li>解码<ul>
+<li><code>String   str   =   java.net.URLDecoder.decode("编码后的字符串","UTF-8");   </code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Cookie-解析"><a href="#Cookie-解析" class="headerlink" title="Cookie 解析"></a>Cookie 解析</h4><ul>
+<li>Cookie 通常设置在 HTTP 头信息中（ JavaScript 也可以直接在浏览器上设置一个 Cookie）。</li>
+<li>设置 Cookie 的 Servlet 会发送如下的头信息</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Fri, 04 Feb 2000 21:03:38 GMT</span><br><span class="line">Server: Apache/1.3.9 (UNIX) PHP/4.0b3</span><br><span class="line">Set-Cookie: name=xyz; expires=Friday, 04-Feb-07 22:03:38 GMT; </span><br><span class="line">                 path=/; domain=runoob.com</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: text/html</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>Set-Cookie 头包含了一个名称值对、一个 GMT 日期、一个路径和一个域。名称和值会被 URL 编码</li>
+<li><code>expires</code> 字段是一个指令，告诉浏览器在给定的时间和日期之后”忘记”该 Cookie。如果浏览器被配置为存储 Cookie，它将会保留此信息直到到期日期</li>
+<li>如果用户的浏览器指向任何匹配该 Cookie 的路径和域的页面，它会重新发送 Cookie 到服务器</li>
+<li>浏览器的头信息可能如下所示</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.0</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">User-Agent: Mozilla/4.6 (X11; I; Linux 2.2.6-15apmac ppc)</span><br><span class="line">Host: zink.demon.co.uk:1126</span><br><span class="line">Accept: image/gif, */*</span><br><span class="line">Accept-Encoding: gzip</span><br><span class="line">Accept-Language: en</span><br><span class="line">Accept-Charset: iso-8859-1,*,utf-8</span><br><span class="line">Cookie: name=xyz</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>Servlet 就能够通过请求方法<code>request.getCookies() </code>访问 Cookie，该方法将返回一个 <em>Cookie</em> 对象的数组</li>
+</ul>
+<h4 id="Servlet-Cookie-方法"><a href="#Servlet-Cookie-方法" class="headerlink" title="Servlet Cookie 方法"></a>Servlet Cookie 方法</h4><ul>
+<li>在 Servlet 中操作 Cookie 时可使用的有用的方法列表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法及其描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>public void setDomain(String pattern)</strong> //该方法设置 cookie 适用的域，例如 runoob.com。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>public String getDomain()</strong> //方法获取 cookie 适用的域，例如 runoob.com。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public void setMaxAge(int expiry)</strong> //该方法设置 cookie 过期的时间（以秒为单位）。如果不这样设置，cookie 只会在当前 session 会话中持续有效。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>public int getMaxAge()</strong> 该方法返回 //cookie 的最大生存周期（以秒为单位），默认情况下，-1 表示 cookie 将持续下去，直到浏览器关闭。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>public String getName()</strong> //该方法返回 cookie 的名称。名称在创建后不能改变。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>public void setValue(String newValue)</strong> //该方法设置与 cookie 关联的值。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>public String getValue()</strong> //方法获取与 cookie 关联的值。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>public void setPath(String uri)</strong> //该方法设置 cookie 适用的路径。如果您不指定路径，与当前页面相同目录下的（包括子目录下的）所有 URL 都会返回 cookie。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>public String getPath()</strong> //该方法获取 cookie 适用的路径。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>public void setSecure(boolean flag)</strong> //该方法设置布尔值，表示 cookie 是否应该只在加密的（即 SSL）连接上发送。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>public void setComment(String purpose)</strong> //设置cookie的注释。该注释在浏览器向用户呈现 cookie 时非常有用。</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>public String getComment()</strong> //获取 cookie 的注释，如果 cookie 没有注释则返回 null。</td>
+</tr>
+</tbody></table>
+<h4 id="通过-Servlet-设置-Cookie"><a href="#通过-Servlet-设置-Cookie" class="headerlink" title="通过 Servlet 设置 Cookie"></a>通过 Servlet 设置 Cookie</h4><ul>
+<li><p>通过 Servlet 设置 Cookie 包括三个步骤</p>
+<ul>
+<li><strong>创建一个 Cookie 对象</strong><ul>
+<li>可以调用带有 cookie 名称和 cookie 值的 Cookie 构造函数，cookie 名称和 cookie 值都是字符串<ul>
+<li><code>Cookie cookie = new Cookie("key","value");</code></li>
+</ul>
+</li>
+<li>无论是名字还是值，都不应该包含空格或以下任何字符<ul>
+<li><code>[ ] ( ) = , " / ? @ : ;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>设置最大生存周期</strong><ul>
+<li>可以使用 setMaxAge 方法来指定 cookie 能够保持有效的时间（以秒为单位）</li>
+<li>下面将设置一个最长有效期为 24 小时的 cookie<ul>
+<li><code>cookie.setMaxAge(60*60*24);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>发送 Cookie 到 HTTP 响应头</strong><ul>
+<li>可以使用 <strong>response.addCookie</strong> 来添加 HTTP 响应头中的 Cookie<ul>
+<li><code>response.addCookie(cookie);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>实例</p>
+<ul>
+<li>修改表单数据实例，为名字和姓氏设置 Cookie</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Servlet implementation class HelloServlet</span><br><span class="line"> */</span><br><span class="line">@WebServlet("/HelloForm")</span><br><span class="line">public class HelloForm extends HttpServlet {</span><br><span class="line">    private static final long serialVersionUID = 1L;</span><br><span class="line">       </span><br><span class="line">    /**</span><br><span class="line">     * @see HttpServlet#HttpServlet()</span><br><span class="line">     */</span><br><span class="line">    public HelloForm() {</span><br><span class="line">        super();</span><br><span class="line">        // TODO Auto-generated constructor stub</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">     */</span><br><span class="line">    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException</span><br><span class="line">    {</span><br><span class="line">        // 为名字和姓氏创建 Cookie      </span><br><span class="line">        Cookie name = new Cookie("name",</span><br><span class="line">                URLEncoder.encode(request.getParameter("name"), "UTF-8")); // 中文转码</span><br><span class="line">        Cookie url = new Cookie("url",</span><br><span class="line">                      request.getParameter("url"));</span><br><span class="line">        </span><br><span class="line">        // 为两个 Cookie 设置过期日期为 24 小时后</span><br><span class="line">        name.setMaxAge(60*60*24); </span><br><span class="line">        url.setMaxAge(60*60*24); </span><br><span class="line">        </span><br><span class="line">        // 在响应头中添加两个 Cookie</span><br><span class="line">        response.addCookie( name );</span><br><span class="line">        response.addCookie( url );</span><br><span class="line">        </span><br><span class="line">        // 设置响应内容类型</span><br><span class="line">        response.setContentType("text/html;charset=UTF-8");</span><br><span class="line">        </span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        String title = "设置 Cookie 实例";</span><br><span class="line">        String docType = "&lt;!DOCTYPE html&gt;\n";</span><br><span class="line">        out.println(docType +</span><br><span class="line">                "&lt;html&gt;\n" +</span><br><span class="line">                "&lt;head&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n" +</span><br><span class="line">                "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" +</span><br><span class="line">                "&lt;h1 align=\"center\"&gt;" + title + "&lt;/h1&gt;\n" +</span><br><span class="line">                "&lt;ul&gt;\n" +</span><br><span class="line">                "  &lt;li&gt;&lt;b&gt;站点名：&lt;/b&gt;："</span><br><span class="line">                + request.getParameter("name") + "\n&lt;/li&gt;" +</span><br><span class="line">                "  &lt;li&gt;&lt;b&gt;站点 URL：&lt;/b&gt;："</span><br><span class="line">                + request.getParameter("url") + "\n&lt;/li&gt;" +</span><br><span class="line">                "&lt;/ul&gt;\n" +</span><br><span class="line">                "&lt;/body&gt;&lt;/html&gt;");</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">     */</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {</span><br><span class="line">        // TODO Auto-generated method stub</span><br><span class="line">        doGet(request, response);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>web.xml 文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line">&lt;web-app&gt;</span><br><span class="line">  &lt;servlet&gt; </span><br><span class="line">    &lt;!-- 类名 --&gt;  </span><br><span class="line">    &lt;servlet-name&gt;HelloForm&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- 所在的包 --&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.runoob.test.HelloForm&lt;/servlet-class&gt;</span><br><span class="line">  &lt;/servlet&gt;</span><br><span class="line">  &lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;HelloForm&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- 访问的网址 --&gt;</span><br><span class="line">    &lt;url-pattern&gt;/TomcatTest/HelloForm&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>HTML 页面</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset="utf-8"&gt;</span><br><span class="line">&lt;title&gt;菜鸟教程(runoob.com)&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action="/TomcatTest/HelloForm" method="GET"&gt;</span><br><span class="line">站点名 ：&lt;input type="text" name="name"&gt;</span><br><span class="line">&lt;br /&gt;</span><br><span class="line">站点 URL：&lt;input type="text" name="url" /&gt;&lt;br&gt;</span><br><span class="line">&lt;input type="submit" value="提交" /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="通过-Servlet-读取-Cookie"><a href="#通过-Servlet-读取-Cookie" class="headerlink" title="通过 Servlet 读取 Cookie"></a>通过 Servlet 读取 Cookie</h4><ul>
+<li>要读取 Cookie，您需要通过调用 <em>HttpServletRequest</em> 的 <strong>getCookies( )</strong> 方法创建一个 <em>javax.servlet.http.Cookie</em> 对象的数组</li>
+<li>然后循环遍历数组，并使用 getName() 和 getValue() 方法来访问每个 cookie 和关联的值</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Servlet implementation class ReadCookies</span><br><span class="line"> */</span><br><span class="line">@WebServlet("/ReadCookies")</span><br><span class="line">public class ReadCookies extends HttpServlet {</span><br><span class="line">    private static final long serialVersionUID = 1L;</span><br><span class="line">       </span><br><span class="line">    /**</span><br><span class="line">     * @see HttpServlet#HttpServlet()</span><br><span class="line">     */</span><br><span class="line">    public ReadCookies() {</span><br><span class="line">        super();</span><br><span class="line">        // TODO Auto-generated constructor stub</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">     */</span><br><span class="line">    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException</span><br><span class="line">    {</span><br><span class="line">        Cookie cookie = null;</span><br><span class="line">        Cookie[] cookies = null;</span><br><span class="line">        // 获取与该域相关的 Cookie 的数组</span><br><span class="line">        cookies = request.getCookies();</span><br><span class="line">         </span><br><span class="line">         // 设置响应内容类型</span><br><span class="line">         response.setContentType("text/html;charset=UTF-8");</span><br><span class="line">    </span><br><span class="line">         PrintWriter out = response.getWriter();</span><br><span class="line">         String title = "Delete Cookie Example";</span><br><span class="line">         String docType = "&lt;!DOCTYPE html&gt;\n";</span><br><span class="line">         out.println(docType +</span><br><span class="line">                   "&lt;html&gt;\n" +</span><br><span class="line">                   "&lt;head&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n" +</span><br><span class="line">                   "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" );</span><br><span class="line">          if( cookies != null ){</span><br><span class="line">            out.println("&lt;h2&gt;Cookie 名称和值&lt;/h2&gt;");</span><br><span class="line">            for (int i = 0; i &lt; cookies.length; i++){</span><br><span class="line">               cookie = cookies[i];</span><br><span class="line">               if((cookie.getName( )).compareTo("name") == 0 ){</span><br><span class="line">                    cookie.setMaxAge(0);</span><br><span class="line">                    response.addCookie(cookie);</span><br><span class="line">                    out.print("已删除的 cookie：" + </span><br><span class="line">                                 cookie.getName( ) + "&lt;br/&gt;");</span><br><span class="line">               }</span><br><span class="line">               out.print("名称：" + cookie.getName( ) + "，");</span><br><span class="line">               out.print("值：" +  URLDecoder.decode(cookie.getValue(), "utf-8") +" &lt;br/&gt;");</span><br><span class="line">            }</span><br><span class="line">         }else{</span><br><span class="line">             out.println(</span><br><span class="line">               "&lt;h2 class=\"tutheader\"&gt;No Cookie founds&lt;/h2&gt;");</span><br><span class="line">         }</span><br><span class="line">         out.println("&lt;/body&gt;");</span><br><span class="line">         out.println("&lt;/html&gt;");</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line">     */</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {</span><br><span class="line">        // TODO Auto-generated method stub</span><br><span class="line">        doGet(request, response);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="通过-Servlet-删除-Cookie"><a href="#通过-Servlet-删除-Cookie" class="headerlink" title="通过 Servlet 删除 Cookie"></a>通过 Servlet 删除 Cookie</h4><ul>
+<li>如果您想删除一个 cookie，只需要按照以下三个步骤进行<ul>
+<li>读取一个现有的 cookie，并把它存储在 Cookie 对象中。</li>
+<li>使用 <strong>setMaxAge()</strong> 方法设置 cookie 的年龄为零，来删除现有的 cookie。</li>
+<li>把这个 cookie 添加到响应头。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)</span><br><span class="line"> */</span><br><span class="line">public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException</span><br><span class="line">{</span><br><span class="line">    Cookie cookie = null;</span><br><span class="line">    Cookie[] cookies = null;</span><br><span class="line">    // 获取与该域相关的 Cookie 的数组</span><br><span class="line">    cookies = request.getCookies();</span><br><span class="line">    </span><br><span class="line">        // 设置响应内容类型</span><br><span class="line">    response.setContentType("text/html;charset=UTF-8");</span><br><span class="line">   </span><br><span class="line">    PrintWriter out = response.getWriter();</span><br><span class="line">    String title = "删除 Cookie 实例";</span><br><span class="line">    String docType = "&lt;!DOCTYPE html&gt;\n";</span><br><span class="line">    out.println(docType +</span><br><span class="line">              "&lt;html&gt;\n" +</span><br><span class="line">              "&lt;head&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n" +</span><br><span class="line">              "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" );</span><br><span class="line">     if( cookies != null ){</span><br><span class="line">       out.println("&lt;h2&gt;Cookie 名称和值&lt;/h2&gt;");</span><br><span class="line">       for (int i = 0; i &lt; cookies.length; i++){</span><br><span class="line">          cookie = cookies[i];</span><br><span class="line">          if((cookie.getName( )).compareTo("url") == 0 ){</span><br><span class="line">               cookie.setMaxAge(0);</span><br><span class="line">               response.addCookie(cookie);</span><br><span class="line">               out.print("已删除的 cookie：" + </span><br><span class="line">                            cookie.getName( ) + "&lt;br/&gt;");</span><br><span class="line">          }</span><br><span class="line">          out.print("名称：" + cookie.getName( ) + "，");</span><br><span class="line">          out.print("值：" + cookie.getValue( )+" &lt;br/&gt;");</span><br><span class="line">       }</span><br><span class="line">    }else{</span><br><span class="line">        out.println(</span><br><span class="line">          "&lt;h2 class=\"tutheader\"&gt;No Cookie founds&lt;/h2&gt;");</span><br><span class="line">    }</span><br><span class="line">    out.println("&lt;/body&gt;");</span><br><span class="line">    out.println("&lt;/html&gt;");</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="Servlet-Session-跟踪"><a href="#Servlet-Session-跟踪" class="headerlink" title="Servlet Session 跟踪"></a>Servlet Session 跟踪</h3><ul>
+<li><p>HTTP 是一种”无状态”协议，这意味着每次客户端检索网页时，客户端打开一个单独的连接到 Web 服务器，服务器会<strong>自动不保留</strong>之前客户端请求的任何记录</p>
+</li>
+<li><p>但是仍然有以下三种方式来维持 Web 客户端和 Web 服务器之间的 session 会话</p>
+<ul>
+<li><p>Cookies</p>
+<ul>
+<li>一个 Web 服务器可以分配一个唯一的 session 会话 ID 作为每个 Web 客户端的 cookie，对于客户端的后续请求可以使用接收到的 cookie 来识别</li>
+</ul>
+</li>
+<li><p>隐藏的表单字段</p>
+<ul>
+<li>一个 Web 服务器可以发送一个隐藏的 HTML 表单字段，以及一个唯一的 session 会话 ID<ul>
+<li><code>&lt;input type="hidden" name="sessionid" value="12345"&gt;</code></li>
+<li>该条目意味着，当表单被提交时，指定的名称和值会被自动包含在 GET 或 POST 数据中。每次当 Web 浏览器发送回请求时，session_id 值可以用于保持不同的 Web 浏览器的跟踪。</li>
+<li>这可能是一种保持 session 会话跟踪的有效方式，但是点击常规的超文本链接<code>（&lt;A HREF...&gt;）</code>不会导致表单提交，因此隐藏的表单字段也不支持常规的 session 会话跟踪。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>URL 重写</p>
+<ul>
+<li>可以在每个 URL 末尾追加一些额外的数据来标识 session 会话，服务器会把该 session 会话标识符与已存储的有关 session 会话的数据相关联。<ul>
+<li>例如，<code>http://w3cschool.cc/file.htm;sessionid=12345</code>，session 会话标识符被附加为 sessionid=12345，标识符可被 Web 服务器访问以识别客户端。</li>
+</ul>
+</li>
+<li>一种更好的维持 session 会话的方式，它在浏览器不支持 cookie 时能够很好地工作，但是它的缺点是会动态生成每个 URL 来为页面分配一个 session 会话 ID，即使是在很简单的静态 HTML 页面中也会如此。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="HttpSession-对象"><a href="#HttpSession-对象" class="headerlink" title="HttpSession 对象"></a>HttpSession 对象</h4><ul>
+<li><p>除了上述的三种方式，Servlet 还提供了 HttpSession 接口，该接口提供了一种<strong>跨多个页面请求或访问</strong>网站时识别用户以及存储有关用户信息的方式。</p>
+</li>
+<li><p>Servlet 容器使用这个接口来创建一个 HTTP 客户端和 HTTP 服务器之间的 session 会话。会话持续一个指定的时间段，跨多个连接或页面请求。</p>
+</li>
+<li><p>您会通过调用 HttpServletRequest 的公共方法 <strong>getSession()</strong> 来获取 HttpSession 对象，如下所示：</p>
+<ul>
+<li><code>HttpSession session = request.getSession();</code></li>
+</ul>
+</li>
+<li><p>你需要在向客户端发送任何文档内容之前调用 *request.getSession()*。下面总结了 HttpSession 对象中可用的几个重要的方法</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法以及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>public Object getAttribute(String name)</strong> //该方法返回在该 session 会话中具有指定名称的对象，如果没有指定名称的对象，则返回 null。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>public Enumeration getAttributeNames()</strong> //该方法返回 String 对象的枚举，String 对象包含所有绑定到该 session 会话的对象的名称。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public long getCreationTime()</strong> //该方法返回该 session 会话被创建的时间，自格林尼治标准时间 1970 年 1 月 1 日午夜算起，以毫秒为单位。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>public String getId()</strong> //该方法返回一个包含分配给该 session 会话的唯一标识符的字符串。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>public long getLastAccessedTime()</strong> //该方法返回客户端最后一次发送与该 session 会话相关的请求的时间自格林尼治标准时间 1970 年 1 月 1 日午夜算起，以毫秒为单位。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>public int getMaxInactiveInterval()</strong> //该方法返回 Servlet 容器在客户端访问时保持 session 会话打开的最大时间间隔，以秒为单位。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>public void invalidate()</strong> //该方法指示该 session 会话无效，并解除绑定到它上面的任何对象。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>public boolean isNew()</strong> //如果客户端还不知道该 session 会话，或者如果客户选择不参入该 session 会话，则该方法返回 true。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>public void removeAttribute(String name)</strong> //该方法将从该 session 会话移除指定名称的对象。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>public void setAttribute(String name, Object value)</strong> //方法使用指定的名称绑定一个对象到该 session 会话。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>public void setMaxInactiveInterval(int interval)</strong> //方法在 Servlet 容器指示该 session 会话无效之前，指定客户端请求之间的时间，以秒为单位。</td>
+</tr>
+</tbody></table>
+<h4 id="Session-跟踪实例"><a href="#Session-跟踪实例" class="headerlink" title="Session 跟踪实例"></a>Session 跟踪实例</h4><ul>
+<li>本实例说明了如何使用 HttpSession 对象获取 session 会话创建时间和最后访问时间。</li>
+<li>如果不存在 session 会话，我们将通过请求创建一个新的 session 会话。</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Servlet implementation class SessionTrack</span><br><span class="line"> */</span><br><span class="line">@WebServlet("/SessionTrack")</span><br><span class="line">public class SessionTrack extends HttpServlet {</span><br><span class="line">    private static final long serialVersionUID = 1L;</span><br><span class="line"></span><br><span class="line">    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException</span><br><span class="line">    {</span><br><span class="line">        // 如果不存在 session 会话，则创建一个 session 对象</span><br><span class="line">        HttpSession session = request.getSession(true);</span><br><span class="line">        // 获取 session 创建时间</span><br><span class="line">        Date createTime = new Date(session.getCreationTime());</span><br><span class="line">        // 获取该网页的最后一次访问时间</span><br><span class="line">        Date lastAccessTime = new Date(session.getLastAccessedTime());</span><br><span class="line">         </span><br><span class="line">        //设置日期输出的格式  </span><br><span class="line">        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  </span><br><span class="line">    </span><br><span class="line">        String title = "Servlet Session 实例 - 菜鸟教程";</span><br><span class="line">        Integer visitCount = new Integer(0);</span><br><span class="line">        String visitCountKey = new String("visitCount");</span><br><span class="line">        String userIDKey = new String("userID");</span><br><span class="line">        String userID = new String("Runoob");</span><br><span class="line">        if(session.getAttribute(visitCountKey) == null) {</span><br><span class="line">            session.setAttribute(visitCountKey, new Integer(0));</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">        // 检查网页上是否有新的访问者</span><br><span class="line">        if (session.isNew()){</span><br><span class="line">            title = "Servlet Session 实例 - 菜鸟教程";</span><br><span class="line">             session.setAttribute(userIDKey, userID);</span><br><span class="line">        } else {</span><br><span class="line">             visitCount = (Integer)session.getAttribute(visitCountKey);</span><br><span class="line">             visitCount = visitCount + 1;</span><br><span class="line">             userID = (String)session.getAttribute(userIDKey);</span><br><span class="line">        }</span><br><span class="line">        session.setAttribute(visitCountKey,  visitCount);</span><br><span class="line">    </span><br><span class="line">        // 设置响应内容类型</span><br><span class="line">        response.setContentType("text/html;charset=UTF-8");</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">    </span><br><span class="line">        String docType = "&lt;!DOCTYPE html&gt;\n";</span><br><span class="line">        out.println(docType +</span><br><span class="line">                "&lt;html&gt;\n" +</span><br><span class="line">                "&lt;head&gt;&lt;title&gt;" + title + "&lt;/title&gt;&lt;/head&gt;\n" +</span><br><span class="line">                "&lt;body bgcolor=\"#f0f0f0\"&gt;\n" +</span><br><span class="line">                "&lt;h1 align=\"center\"&gt;" + title + "&lt;/h1&gt;\n" +</span><br><span class="line">                 "&lt;h2 align=\"center\"&gt;Session 信息&lt;/h2&gt;\n" +</span><br><span class="line">                "&lt;table border=\"1\" align=\"center\"&gt;\n" +</span><br><span class="line">                "&lt;tr bgcolor=\"#949494\"&gt;\n" +</span><br><span class="line">                "  &lt;th&gt;Session 信息&lt;/th&gt;&lt;th&gt;值&lt;/th&gt;&lt;/tr&gt;\n" +</span><br><span class="line">                "&lt;tr&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;id&lt;/td&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;" + session.getId() + "&lt;/td&gt;&lt;/tr&gt;\n" +</span><br><span class="line">                "&lt;tr&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;创建时间&lt;/td&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;" +  df.format(createTime) + </span><br><span class="line">                "  &lt;/td&gt;&lt;/tr&gt;\n" +</span><br><span class="line">                "&lt;tr&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;最后访问时间&lt;/td&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;" + df.format(lastAccessTime) + </span><br><span class="line">                "  &lt;/td&gt;&lt;/tr&gt;\n" +</span><br><span class="line">                "&lt;tr&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;用户 ID&lt;/td&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;" + userID + </span><br><span class="line">                "  &lt;/td&gt;&lt;/tr&gt;\n" +</span><br><span class="line">                "&lt;tr&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;访问统计：&lt;/td&gt;\n" +</span><br><span class="line">                "  &lt;td&gt;" + visitCount + "&lt;/td&gt;&lt;/tr&gt;\n" +</span><br><span class="line">                "&lt;/table&gt;\n" +</span><br><span class="line">                "&lt;/body&gt;&lt;/html&gt;"); </span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>web.xml</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line">&lt;web-app&gt;</span><br><span class="line">  &lt;servlet&gt; </span><br><span class="line">    &lt;!-- 类名 --&gt;  </span><br><span class="line">    &lt;servlet-name&gt;SessionTrack&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- 所在的包 --&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.runoob.test.SessionTrack&lt;/servlet-class&gt;</span><br><span class="line">  &lt;/servlet&gt;</span><br><span class="line">  &lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;SessionTrack&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- 访问的网址 --&gt;</span><br><span class="line">    &lt;url-pattern&gt;/TomcatTest/SessionTrack&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="删除-Session-会话数据"><a href="#删除-Session-会话数据" class="headerlink" title="删除 Session 会话数据"></a>删除 Session 会话数据</h4><ul>
+<li><p>当您完成了一个用户的 session 会话数据，您有以下几种选择：</p>
+<ul>
+<li><p>移除一个特定的属性：您可以调用 <em>public void removeAttribute(String name)</em> 方法来删除与特定的键相关联的值。</p>
+</li>
+<li><p>删除整个 session 会话：您可以调用 <em>public void invalidate()</em> 方法来丢弃整个 session 会话。</p>
+</li>
+<li><p>设置 session 会话过期时间：您可以调用 <em>public void setMaxInactiveInterval(int interval)</em> 方法来单独设置 session 会话超时。</p>
+</li>
+<li><p>注销用户：如果使用的是支持 servlet 2.4 的服务器，您可以调用 <strong>logout</strong> 来注销 Web 服务器的客户端，并把属于所有用户的所有 session 会话设置为无效。</p>
+</li>
+<li><p>web.xml 配置：如果您使用的是 Tomcat，除了上述方法，您还可以在 web.xml 文件中配置 session 会话超时，如下所示：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//实例中的超时时间是以分钟为单位，将覆盖 Tomcat 中默认的 30 分钟超时时间。</span><br><span class="line">&lt;session-config&gt;</span><br><span class="line">  &lt;session-timeout&gt;15&lt;/session-timeout&gt;</span><br><span class="line">&lt;/session-config&gt;</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>在一个 Servlet 中的 getMaxInactiveInterval() 方法会返回 session 会话的超时时间，以<strong>秒</strong>为单位。所以，如果在 web.xml 中配置 session 会话超时时间为 15 分钟，那么 getMaxInactiveInterval() 会返回 900。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-数据库访问"><a href="#Servlet-数据库访问" class="headerlink" title="Servlet 数据库访问"></a>Servlet 数据库访问</h3><ul>
+<li>JDBC形式，不做笔记</li>
+</ul>
+<h3 id="Servlet-文件上传"><a href="#Servlet-文件上传" class="headerlink" title="Servlet 文件上传"></a>Servlet 文件上传</h3><ul>
+<li>Servlet 可以与 HTML form 标签一起使用，来允许用户上传文件到服务器。上传的文件可以是文本文件或图像文件或任何文档<ul>
+<li>表单 <strong>method</strong> 属性应该设置为 <strong>POST</strong> 方法，不能使用 GET 方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-处理日期"><a href="#Servlet-处理日期" class="headerlink" title="Servlet 处理日期"></a>Servlet 处理日期</h3><ul>
+<li>不做笔记</li>
+</ul>
+<h3 id="Servlet-国家化"><a href="#Servlet-国家化" class="headerlink" title="Servlet 国家化"></a>Servlet 国家化</h3><ul>
+<li>不做笔记</li>
+</ul>
+<h3 id="Servlet-自动刷新页面"><a href="#Servlet-自动刷新页面" class="headerlink" title="Servlet 自动刷新页面"></a>Servlet 自动刷新页面</h3><ul>
+<li>Java Servlet 提供了一个机制，使得网页会在给定的时间间隔自动刷新</li>
+<li>刷新网页的最简单的方式是使用响应对象的方法 <strong>setIntHeader()</strong>,此方法把头信息 “Refresh” 连同一个表示时间间隔的整数值（以秒为单位）发送回浏览器<ul>
+<li><code>public void setIntHeader(String header, int headerValue)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-网页重定向"><a href="#Servlet-网页重定向" class="headerlink" title="Servlet 网页重定向"></a>Servlet 网页重定向</h3><ul>
+<li><p>当文档移动到新的位置，我们需要向客户端发送这个新位置时，我们需要用到网页重定向，当然，也可能是为了负载均衡，或者只是为了简单的随机，这些情况都有可能用到网页重定向。</p>
+</li>
+<li><p>重定向请求到另一个网页的最简单的方式是使用 response 对象的 <code>sendRedirect()</code> 方法,该方法把响应连同状态码和新的网页位置发送回浏览器,下面是该方法的定义</p>
+<ul>
+<li><code>public void HttpServletResponse.sendRedirect(String location) throws IOException </code></li>
+</ul>
+</li>
+<li><p>也可以通过把 setStatus() 和 setHeader() 方法一起使用来达到同样的效果</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String site = "http://www.xinye.com" ;</span><br><span class="line">response.setStatus(response.SC_MOVED_TEMPORARILY);</span><br><span class="line">response.setHeader("Location", site); </span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Servlet-包"><a href="#Servlet-包" class="headerlink" title="Servlet 包"></a>Servlet 包</h3><ul>
+<li>涉及到 WEB-INF 子目录的 Web 应用程序结构是所有的 Java web 应用程序的标准，并由 Servlet API 规范指定<ul>
+<li>WEB-INF 子目录中包含应用程序的部署描述符，名为 web.xml。</li>
+<li>所有的 HTML 文件都位于顶级目录下。对于 admin 用户，您会发现 ROOT 目录是顶级目录的父目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="Servlet-调试"><a href="#Servlet-调试" class="headerlink" title="Servlet 调试"></a>Servlet 调试</h3><ul>
+<li><p>System.out.println()</p>
+<ul>
+<li>是作为一个标记来使用的，用来测试一段特定的代码是否被执行，也可以打印出变量的值</li>
+<li>由于 System 对象是核心 Java 对象的一部分，它可以在不需要安装任何额外类的情况下被用于任何地方</li>
+<li>与在断点处停止不同，写入到 System.out 不会干扰到应用程序的正常执行流程</li>
+<li>语法生成的所有消息将被记录在 Web 服务器日志文件中</li>
+</ul>
+</li>
+<li><p>消息日志</p>
+<ul>
+<li>使用适当的日志记录方法来记录所有调试、警告和错误消息，这是非常好的想法，推荐使用 <a target="_blank" rel="noopener" href="https://logging.apache.org/log4j/2.0/download.html">log4J</a> 来记录所有的消息</li>
+</ul>
+</li>
+<li><p>使用 JDB 调试器</p>
+</li>
+<li><p>使用注释</p>
+</li>
+<li><p>客户端和服务器端头信息</p>
+</li>
+<li><p>重要的调试技巧</p>
+<ul>
+<li>请注意，server_root/classes 不会重载，而 server_root/servlets 可能会。</li>
+<li>要求浏览器显示它所显示的页面的原始内容。这有助于识别格式的问题。它通常是”视图”菜单下的一个选项。</li>
+<li>通过强制执行完全重新加载页面来确保浏览器还没有缓存前一个请求的输出。在 Netscape Navigator 中，请使用 Shift-Reload，在 Internet Explorer 中，请使用 Shift-Refresh。</li>
+<li>请确认 servlet 的 init() 方法接受一个 ServletConfig 参数，并调用 super.init(config)。</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">新野</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/09/25/Servlet/">http://example.com/2022/09/25/Servlet/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Nature</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808864.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/22/XML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808862.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">XML学习笔记</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/25/DTD/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808862.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DTD</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/09/25/DTD/" title="DTD"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808862.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-25</div><div class="title">DTD</div></div></a></div><div><a href="/2022/09/22/XML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="XML学习笔记"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808862.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-22</div><div class="title">XML学习笔记</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image@v1.0.4/Blog/202209202244761.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">新野</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">急也没用</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Servlet 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E6%A1%86%E6%9E%B6%E5%9B%BE"><span class="toc-number">2.</span> <span class="toc-text">Servlet 框架图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E4%BB%BB%E5%8A%A1"><span class="toc-number">3.</span> <span class="toc-text">Servlet 任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%8C%85%E5%8F%8A%E5%85%B6%E5%88%9B%E5%BB%BA"><span class="toc-number">4.</span> <span class="toc-text">Servlet 包及其创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">5.</span> <span class="toc-text">Servlet 生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">Servlet 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE"><span class="toc-number">7.</span> <span class="toc-text">Servlet 表单数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GET-%E6%96%B9%E6%B3%95"><span class="toc-number">7.1.</span> <span class="toc-text">GET 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#POST-%E6%96%B9%E6%B3%95"><span class="toc-number">7.2.</span> <span class="toc-text">POST 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Servlet-%E8%AF%BB%E5%8F%96%E8%A1%A8%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">7.3.</span> <span class="toc-text">使用 Servlet 读取表单的数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%AE%A2%E6%88%B7%E7%AB%AF-HTTP-%E8%AF%B7%E6%B1%82"><span class="toc-number">8.</span> <span class="toc-text">Servlet 客户端 HTTP 请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96-HTTP-%E5%A4%B4%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">8.1.</span> <span class="toc-text">读取 HTTP 头的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E6%9C%8D%E5%8A%A1%E5%99%A8-HTTP-%E5%93%8D%E5%BA%94"><span class="toc-number">9.</span> <span class="toc-text">Servlet 服务器 HTTP 响应</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-HTTP-%E5%93%8D%E5%BA%94%E6%8A%A5%E5%A4%B4%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">9.1.</span> <span class="toc-text">设置 HTTP 响应报头的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-HTTP-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">10.</span> <span class="toc-text">Servlet HTTP 状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E7%BC%96%E5%86%99%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">11.</span> <span class="toc-text">Servlet 编写过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Servlet-%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95"><span class="toc-number">11.1.</span> <span class="toc-text">Servlet 过滤器方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Servlet-%E8%BF%87%E6%BB%A4%E5%99%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">11.2.</span> <span class="toc-text">Servlet 过滤器实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">11.3.</span> <span class="toc-text">使用多个过滤器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%BA%94%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="toc-number">11.4.</span> <span class="toc-text">过滤器的应用顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web-xml-%E9%85%8D%E7%BD%AE%E5%90%84%E4%B8%AA%E8%8A%82%E7%82%B9%E8%AF%B4%E6%98%8E"><span class="toc-number">11.5.</span> <span class="toc-text">web.xml 配置各个节点说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90"><span class="toc-number">11.6.</span> <span class="toc-text">实用例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">12.</span> <span class="toc-text">Servlet 异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7-%E9%94%99%E8%AF%AF-x2F-%E5%BC%82%E5%B8%B8"><span class="toc-number">12.1.</span> <span class="toc-text">请求属性 - 错误/异常</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-Cookie-%E5%A4%84%E7%90%86"><span class="toc-number">13.</span> <span class="toc-text">Servlet Cookie 处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-%E8%A7%A3%E6%9E%90"><span class="toc-number">13.1.</span> <span class="toc-text">Cookie 解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Servlet-Cookie-%E6%96%B9%E6%B3%95"><span class="toc-number">13.2.</span> <span class="toc-text">Servlet Cookie 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Servlet-%E8%AE%BE%E7%BD%AE-Cookie"><span class="toc-number">13.3.</span> <span class="toc-text">通过 Servlet 设置 Cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Servlet-%E8%AF%BB%E5%8F%96-Cookie"><span class="toc-number">13.4.</span> <span class="toc-text">通过 Servlet 读取 Cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Servlet-%E5%88%A0%E9%99%A4-Cookie"><span class="toc-number">13.5.</span> <span class="toc-text">通过 Servlet 删除 Cookie</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-Session-%E8%B7%9F%E8%B8%AA"><span class="toc-number">14.</span> <span class="toc-text">Servlet Session 跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HttpSession-%E5%AF%B9%E8%B1%A1"><span class="toc-number">14.1.</span> <span class="toc-text">HttpSession 对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Session-%E8%B7%9F%E8%B8%AA%E5%AE%9E%E4%BE%8B"><span class="toc-number">14.2.</span> <span class="toc-text">Session 跟踪实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4-Session-%E4%BC%9A%E8%AF%9D%E6%95%B0%E6%8D%AE"><span class="toc-number">14.3.</span> <span class="toc-text">删除 Session 会话数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE"><span class="toc-number">15.</span> <span class="toc-text">Servlet 数据库访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">16.</span> <span class="toc-text">Servlet 文件上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F"><span class="toc-number">17.</span> <span class="toc-text">Servlet 处理日期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%9B%BD%E5%AE%B6%E5%8C%96"><span class="toc-number">18.</span> <span class="toc-text">Servlet 国家化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2"><span class="toc-number">19.</span> <span class="toc-text">Servlet 自动刷新页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E7%BD%91%E9%A1%B5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">20.</span> <span class="toc-text">Servlet 网页重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%8C%85"><span class="toc-number">21.</span> <span class="toc-text">Servlet 包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E8%B0%83%E8%AF%95"><span class="toc-number">22.</span> <span class="toc-text">Servlet 调试</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/25/DTD/" title="DTD"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808862.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DTD"></a><div class="content"><a class="title" href="/2022/09/25/DTD/" title="DTD">DTD</a><time datetime="2022-09-25T04:17:48.000Z" title="发表于 2022-09-25 12:17:48">2022-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/25/Servlet/" title="Servlet"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808864.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Servlet"></a><div class="content"><a class="title" href="/2022/09/25/Servlet/" title="Servlet">Servlet</a><time datetime="2022-09-25T04:15:55.000Z" title="发表于 2022-09-25 12:15:55">2022-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/22/XML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="XML学习笔记"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209221808862.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XML学习笔记"></a><div class="content"><a class="title" href="/2022/09/22/XML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="XML学习笔记">XML学习笔记</a><time datetime="2022-09-22T10:13:30.000Z" title="发表于 2022-09-22 18:13:30">2022-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/13/Junit%E7%AC%94%E8%AE%B0-%E4%B8%80/" title="Junit笔记(一)"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209202248518.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Junit笔记(一)"></a><div class="content"><a class="title" href="/2022/09/13/Junit%E7%AC%94%E8%AE%B0-%E4%B8%80/" title="Junit笔记(一)">Junit笔记(一)</a><time datetime="2022-09-13T14:54:00.000Z" title="发表于 2022-09-13 22:54:00">2022-09-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/13/Git%E7%AC%94%E8%AE%B0-%E4%B8%80/" title="Git笔记(一)"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/xinyemoon/Image/Article/202209202246676.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git笔记(一)"></a><div class="content"><a class="title" href="/2022/09/13/Git%E7%AC%94%E8%AE%B0-%E4%B8%80/" title="Git笔记(一)">Git笔记(一)</a><time datetime="2022-09-13T06:47:37.000Z" title="发表于 2022-09-13 14:47:37">2022-09-13</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2020 - 2022 By 新野</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo-sigma-one.vercel.app/',
+      region: 'ap-shanghai',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-sigma-one.vercel.app/',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="66641056" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-listfolded="true" data-lrctype="0"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax="">
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = 'b16a1fa0e63c46a4b8f28abfb06ae3fe';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.982279,28.19409';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax="" src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><!-- hexo injector body_end end --></body></html>
