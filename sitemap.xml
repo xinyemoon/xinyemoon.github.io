@@ -124,20 +124,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/git/</loc>
-    <lastmod>2022-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/Juint/</loc>
-    <lastmod>2022-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/tags/XML/</loc>
     <lastmod>2022-09-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -146,6 +132,20 @@
   
   <url>
     <loc>http://example.com/tags/DTD/</loc>
+    <lastmod>2022-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/git/</loc>
+    <lastmod>2022-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/Juint/</loc>
     <lastmod>2022-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -175,14 +175,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/git/</loc>
+    <loc>http://example.com/categories/XML/</loc>
     <lastmod>2022-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/XML/</loc>
+    <loc>http://example.com/categories/git/</loc>
     <lastmod>2022-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
