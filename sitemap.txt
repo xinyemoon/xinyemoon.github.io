@@ -1,3 +1,4 @@
+http://example.com/2022/10/11/JavaSE/
 http://example.com/2022/09/25/Servlet/
 http://example.com/2022/09/25/DTD/
 http://example.com/2022/09/22/XML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
@@ -14,8 +15,8 @@ http://example.com/tags/Java/
 http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/
 http://example.com/tags/XML/
 http://example.com/tags/DTD/
-http://example.com/tags/git/
 http://example.com/tags/Juint/
+http://example.com/tags/git/
 http://example.com/tags/test/
 http://example.com/tags/hexo/
 http://example.com/categories/Java/
